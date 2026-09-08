@@ -1,55 +1,117 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;1,400&display=swap');
-
 @layer base {
-  html {
-    scroll-behavior: smooth;
-  }
-
-  body {
-    margin: 0;
-    font-family: 'DM Sans', ui-sans-serif, system-ui, sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-  }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; min-width: 320px; overflow-x: hidden; font-family: 'DM Sans', sans-serif; -webkit-font-smoothing: antialiased; }
+  img { max-width: 100%; }
+  input, select, textarea, button { max-width: 100%; }
+  button, a { -webkit-tap-highlight-color: transparent; }
 }
 
-@keyframes welcome-in {
-  from {
-    opacity: 0;
-    transform: translateY(16px) scale(0.98);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
+.product-card-title,
+.product-card-description {
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
 }
 
-.welcome-card {
-  animation: welcome-in 650ms cubic-bezier(0.23, 1, 0.32, 1) both;
+.product-card-title {
+  -webkit-line-clamp: 1;
+  min-height: 1.25rem;
 }
 
-.welcome-button {
-  transition: transform 160ms ease, background-color 160ms ease;
+.product-card-description {
+  -webkit-line-clamp: 2;
+  min-height: 2.5rem;
+}
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #2563eb transparent;
 }
 
-@media (hover: hover) and (pointer: fine) {
-  .welcome-button:hover {
-    transform: translateY(-2px);
-    background-color: rgb(91 111 87);
-    color: rgb(255 255 255);
-  }
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #e2e8f0;
+}
+
+::-webkit-scrollbar-thumb {
+  border: none;
+  border-radius: 9999px;
+  background: #2563eb;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #1d4ed8;
+}
+
+::-webkit-scrollbar-button,
+::-webkit-scrollbar-button:single-button,
+::-webkit-scrollbar-button:double-button,
+::-webkit-scrollbar-button:start,
+::-webkit-scrollbar-button:end,
+::-webkit-scrollbar-button:start:decrement,
+::-webkit-scrollbar-button:end:increment,
+::-webkit-scrollbar-button:vertical:decrement,
+::-webkit-scrollbar-button:vertical:increment,
+::-webkit-scrollbar-button:horizontal:decrement,
+::-webkit-scrollbar-button:horizontal:increment {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+  background: transparent !important;
+  border: none !important;
+}
+
+.scrollbar-premium {
+  scrollbar-width: thin;
+  scrollbar-color: #2563eb transparent;
+  scrollbar-gutter: stable;
+  overscroll-behavior-x: contain;
+}
+
+.catalog-rail {
+  scrollbar-width: none;
+  overscroll-behavior-x: contain;
+}
+
+.catalog-rail::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
+.catalog-track {
+  position: relative;
+  height: 3px;
+  width: 100%;
+  margin: 6px auto 0;
+  border-radius: 9999px;
+  background: #e2e8f0;
+}
+
+.catalog-thumb {
+  position: absolute;
+  width: 6px;
+  inset-block: 0;
+  border-radius: 9999px;
+  background: #2563eb;
 }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .welcome-card {
-    animation: none;
-  }
-  .welcome-button {
-    transition: none;
+  *, *::before, *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
   }
 }
