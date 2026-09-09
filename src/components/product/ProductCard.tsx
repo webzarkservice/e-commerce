@@ -1,141 +1,90 @@
-import type { Product } from "../../data/data";
-import { Badge, Button } from "../ui";
+import { getRetailerLinks, type Product } from "../../data/data";
+import { Badge } from "../ui";
+import { useWishlist } from "../../context/WishlistContext";
+import { Heart, ChevronDown } from "lucide-react";
 
 export default function ProductCard({
   product,
-  quantity,
-  onSelect,
-  onAdd,
-  onRemove,
-  onBuy,
-  delay = 0,
   horizontal = false,
 }: {
   product: Product;
-  quantity: number;
-  onSelect: () => void;
-  onAdd: () => void;
-  onRemove: () => void;
-  onBuy: () => void;
-  delay?: number;
   horizontal?: boolean;
 }) {
+  const wishlist = useWishlist();
+  const saved = wishlist.has(product.id);
   return (
     <article
-      data-aos={horizontal ? undefined : "fade-up"}
-      data-aos-delay={horizontal ? undefined : delay}
-      className={`group flex h-[329px] shrink-0 flex-col overflow-hidden rounded-[14px] border border-border bg-white transition duration-200 hover:-translate-y-0.5 hover:shadow-card ${
+      className={`group flex h-[362px] shrink-0 flex-col overflow-hidden rounded-[12px] border border-border bg-white transition duration-200 hover:-translate-y-0.5 hover:shadow-card dark:border-slate-700 dark:bg-slate-900 ${
         horizontal ? "w-[196px] sm:w-[210px]" : ""
       }`}
     >
       {/* Product image */}
-      <button
-        className="relative block h-[133px] w-full shrink-0 overflow-hidden bg-soft sm:h-[144px]"
-        onClick={onSelect}
-      >
+      <div className="relative block h-[164px] w-full shrink-0 overflow-hidden bg-slate-50 p-3 dark:bg-slate-800">
         <img
-          className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
+        className="h-full w-full object-contain mix-blend-multiply transition duration-500 group-hover:scale-[1.03] dark:mix-blend-normal"
           src={product.image}
           alt={product.name}
         />
 
-        {product.featured && (
-          <Badge className="absolute left-3 top-3 bg-webzark text-white">
-            Featured
-          </Badge>
-        )}
-      </button>
+        <div className="absolute left-3 top-3 flex items-center gap-2">
+
+          {product.featured && <Badge className="bg-webzark text-white">Editor's pick</Badge>}
+        </div>
+        <button
+          type="button"
+          aria-label={saved ? `Remove ${product.name} from wishlist` : `Save ${product.name} to wishlist`}
+          aria-pressed={saved}
+          onClick={() => wishlist.toggle(product.id)}
+          className={`absolute right-3 top-3 grid h-8 w-8 place-items-center rounded-full text-lg shadow-sm transition hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-webzark ${saved ? "bg-webzark text-white" : "bg-white/95 text-navy"}`}
+        >
+          <Heart size={16} strokeWidth={2} fill={saved ? "currentColor" : "none"} aria-hidden="true" />
+        </button>
+      </div>
 
       {/* Product content */}
       <div className="flex min-h-0 flex-1 flex-col p-2 sm:p-2.5">
         {/* Category */}
-        <p className="mb-0.5 shrink-0 text-[8px] font-bold uppercase leading-3 text-webzark">
+        <p className="mb-1 shrink-0 text-[9px] font-bold uppercase leading-3 text-webzark">
           {product.category}
         </p>
 
         {/* Title */}
-        <h3 className="product-card-title shrink-0 font-display text-[10px] font-bold leading-4 text-navy sm:text-xs">
+        <h3 className="product-card-title shrink-0 font-display text-sm font-bold leading-5 text-navy dark:text-white sm:text-base">
           {product.name}
         </h3>
 
         {/* Description */}
-        <p className="product-card-description my-1 line-clamp-2 min-h-0 text-[12px] leading-5 text-muted">
+        <p className="product-card-description my-2 line-clamp-2 min-h-0 text-xs leading-5 text-muted dark:text-slate-400">
           {product.description}
         </p>
 
-        {/* Price / stock */}
-        <div className="my-1 flex shrink-0 flex-col gap-0.5 sm:flex-row sm:items-end sm:justify-between">
-          <strong className="font-display text-sm leading-5 text-navy sm:text-base">
+        <div className="mt-auto flex items-end justify-between gap-2">
+          <strong className="font-display text-base leading-5 text-navy dark:text-white sm:text-lg">
             ${product.price}
-            <small className="font-sans text-[9px] font-normal text-muted">
-              {" "}
-              USD
-            </small>
+            <small className="font-sans text-[9px] font-normal text-muted"> USD</small>
           </strong>
-
-          <span className="text-[10px] leading-4 text-success">
-            <i className="mr-1 inline-block h-1.5 w-1.5 rounded-full bg-success" />
-            {product.stock} in stock
+          <span className={`text-right text-[10px] leading-4 ${product.stock > 0 ? "text-success" : "text-muted"}`}>
+            {product.stock > 0 ? `In stock (${product.stock})` : "Check retailer"}
           </span>
         </div>
-
-        {/* View details */}
-        <a
-          className="mb-1 block shrink-0 text-[10px] font-bold leading-4 text-webzark hover:text-webzark-dark"
-          href={`/product?id=${product.id}`}
-        >
-          View details
-        </a>
-
-        {/* Actions */}
-        <div className="mt-auto shrink-0">
-          {quantity ? (
-            <div className="flex h-8 gap-1">
-              <div className="flex min-w-0 flex-1 items-center justify-between rounded-[14px] bg-blue-50 px-1 text-xs font-bold text-webzark">
-                <button
-                  aria-label={`Decrease ${product.name}`}
-                  className="px-1 py-1"
-                  onClick={onRemove}
-                >
-                  -
-                </button>
-
-                <span>{quantity}</span>
-
-                <button
-                  aria-label={`Increase ${product.name}`}
-                  className="px-1 py-1"
-                  onClick={onAdd}
-                >
-                  +
-                </button>
-              </div>
-
-              <Button
-                className="h-8 shrink-0 px-2 py-1 text-[10px]"
-                onClick={onBuy}
+        <details className="relative mt-2">
+          <summary className="flex h-9 w-full cursor-pointer list-none items-center justify-center gap-1 rounded-[9px] bg-webzark px-2 py-1 text-[10px] font-bold text-white transition hover:bg-webzark-dark focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-webzark">
+            View retailers <ChevronDown size={13} aria-hidden="true" />
+          </summary>
+          <div className="absolute bottom-10 left-0 right-0 z-10 overflow-hidden rounded-[10px] border border-border bg-white p-1 shadow-card dark:border-slate-700 dark:bg-slate-800">
+            {getRetailerLinks(product).map((retailer) => (
+              <a
+                key={retailer.name}
+                className="block rounded-[8px] px-3 py-2 text-center text-xs font-bold text-navy hover:bg-blue-50 hover:text-webzark dark:text-white dark:hover:bg-slate-700"
+                href={retailer.url}
+                target="_blank"
+                rel="noreferrer"
               >
-                Buy
-              </Button>
-            </div>
-          ) : (
-            <div className="flex h-8 gap-1">
-              <Button
-                className="h-8 min-w-0 flex-1 bg-blue-50 px-2 py-1 text-[10px] text-webzark hover:bg-webzark hover:text-white"
-                onClick={onAdd}
-              >
-                <span className="whitespace-nowrap">Add to cart</span>
-              </Button>
-
-              <Button
-                className="h-8 shrink-0 px-2 py-1 text-[10px]"
-                onClick={onBuy}
-              >
-                Buy
-              </Button>
-            </div>
-          )}
-        </div>
+                {retailer.name}
+              </a>
+            ))}
+          </div>
+        </details>
       </div>
     </article>
   );

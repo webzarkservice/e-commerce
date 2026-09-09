@@ -9,7 +9,31 @@ export type Product = {
   specs: string[];
   stock: number;
   featured?: boolean;
+  affiliateUrl?: string;
 };
+
+export type RetailerLink = {
+  name: string;
+  url: string;
+};
+
+function retailerSearchUrl(retailer: string, productName: string) {
+  const query = encodeURIComponent(productName);
+  return retailer === "Flipkart"
+    ? `https://www.flipkart.com/search?q=${query}`
+    : `https://www.amazon.in/s?k=${query}`;
+}
+
+export function getRetailerLinks(product: Product): RetailerLink[] {
+  return [
+    { name: "Amazon", url: product.affiliateUrl || retailerSearchUrl("Amazon", product.name) },
+    { name: "Flipkart", url: retailerSearchUrl("Flipkart", product.name) },
+  ];
+}
+
+export function getAffiliateUrl(product: Product) {
+  return getRetailerLinks(product)[0].url;
+}
 
 export const products: Product[] = [
   { id: 1, name: 'ThermalPro T80', category: 'Thermal printers', price: 189, image: 'https://images.unsplash.com/photo-1612815154858-60aa4c59eaa6?auto=format&fit=crop&w=900&q=85', gallery: ['https://images.unsplash.com/photo-1612815154858-60aa4c59eaa6?auto=format&fit=crop&w=900&q=85', 'https://images.unsplash.com/photo-1586075010923-2dd4570fb338?auto=format&fit=crop&w=900&q=85', 'https://images.unsplash.com/photo-1611532736597-de2d4265fba3?auto=format&fit=crop&w=900&q=85'], description: 'A dependable 80mm thermal receipt printer for busy counters and compact checkout stations.', specs: ['80mm paper width', '250mm/s print speed', 'USB + Ethernet'], stock: 18, featured: true },
@@ -28,6 +52,12 @@ export const products: Product[] = [
   { id: 14, name: 'Precision Mouse M2', category: 'Computer accessories', price: 39, image: 'https://images.unsplash.com/photo-1527814050087-3793815479db?auto=format&fit=crop&w=900&q=85', gallery: ['https://images.unsplash.com/photo-1527814050087-3793815479db?auto=format&fit=crop&w=900&q=85', 'https://images.unsplash.com/photo-1615663245857-ac93bb7c39e7?auto=format&fit=crop&w=900&q=85', 'https://images.unsplash.com/photo-1527814050087-3793815479db?auto=format&fit=crop&w=900&q=85&sat=-15'], description: 'An accurate ergonomic mouse with programmable buttons for everyday productivity.', specs: ['1600 DPI sensor', 'Six programmable buttons', 'USB-C rechargeable'], stock: 45 },
   { id: 15, name: 'ClearTalk USB Headset', category: 'Audio equipment', price: 79, image: 'https://images.unsplash.com/photo-1546435770-a3e426bf472b?auto=format&fit=crop&w=900&q=85', gallery: ['https://images.unsplash.com/photo-1546435770-a3e426bf472b?auto=format&fit=crop&w=900&q=85', 'https://images.unsplash.com/photo-1583394838336-acd977736f90?auto=format&fit=crop&w=900&q=85', 'https://images.unsplash.com/photo-1484704849700-f032a568e944?auto=format&fit=crop&w=900&q=85'], description: 'A comfortable USB headset with a clear microphone for support teams and video meetings.', specs: ['Noise-reducing microphone', 'USB plug-and-play', 'All-day padded comfort'], stock: 33 },
   { id: 16, name: 'LabelPro L420', category: 'Label printers', price: 159, image: 'https://images.unsplash.com/photo-1612815154858-60aa4c59eaa6?auto=format&fit=crop&w=900&q=85', gallery: ['https://images.unsplash.com/photo-1612815154858-60aa4c59eaa6?auto=format&fit=crop&w=900&q=85', 'https://images.unsplash.com/photo-1586075010923-2dd4570fb338?auto=format&fit=crop&w=900&q=85', 'https://images.unsplash.com/photo-1611532736597-de2d4265fba3?auto=format&fit=crop&w=900&q=85'], description: 'A compact label printer for inventory tags, shipping labels, and organized storage rooms.', specs: ['4-inch label width', '203 DPI printing', 'USB + Ethernet'], stock: 20 },
+  { id: 17, name: 'BeamDesk 27 4K', category: 'Monitors', price: 429, image: 'https://images.unsplash.com/photo-1593642532744-d377ab507dc8?auto=format&fit=crop&w=900&q=85', description: 'A sharp 4K display with generous workspace for dashboards, design, and daily operations.', specs: ['27-inch 4K panel', 'USB-C connectivity', 'Height-adjustable stand'], stock: 12, featured: true },
+  { id: 18, name: 'SwiftScan Mobile', category: 'Barcode scanners', price: 119, image: 'https://images.unsplash.com/photo-1587146429688-19e2f3f3a5a6?auto=format&fit=crop&w=900&q=85', description: 'A lightweight wireless scanner for stock counts, receiving desks, and fast-moving aisles.', specs: ['1D + 2D scanning', 'Bluetooth wireless', '12-hour battery'], stock: 26 },
+  { id: 19, name: 'CounterLight Pro', category: 'POS accessories', price: 34, image: 'https://images.unsplash.com/photo-1556742111-a301076d9d18?auto=format&fit=crop&w=900&q=85', description: 'A compact counter light that keeps checkout areas clear and easy to see.', specs: ['Adjustable brightness', 'USB powered', 'Small footprint'], stock: 38 },
+  { id: 20, name: 'NetGuard Wi-Fi 6', category: 'Networking', price: 139, image: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=900&q=85', description: 'Reliable wireless coverage for small offices, retail floors, and connected workstations.', specs: ['Wi-Fi 6 support', 'Dual-band coverage', 'App-based setup'], stock: 19, featured: true },
+  { id: 21, name: 'PowerDock 10', category: 'Power protection', price: 69, image: 'https://images.unsplash.com/photo-1625842268584-8f3296236761?auto=format&fit=crop&w=900&q=85', description: 'A tidy desktop charging station for phones, scanners, tablets, and everyday accessories.', specs: ['10 charging ports', '100W total output', 'Overload protection'], stock: 30 },
+  { id: 22, name: 'MeetView 1080', category: 'Webcams', price: 99, image: 'https://images.unsplash.com/photo-1587825140708-dfaf72ae4b04?auto=format&fit=crop&w=900&q=85', description: 'A plug-and-play camera for support calls, team meetings, and training sessions.', specs: ['1080p video', 'Wide-angle lens', 'Privacy shutter'], stock: 21 },
 ];
 
 export const categories = ['All hardware', 'Printers', 'POS hardware', 'Scanners', 'Monitors', 'Networking', 'Accessories', 'Power protection'];
