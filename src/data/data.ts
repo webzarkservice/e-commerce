@@ -15,6 +15,7 @@ export type Product = {
 export type RetailerLink = {
   name: string;
   url: string;
+  logo: string;
 };
 
 function retailerSearchUrl(retailer: string, productName: string) {
@@ -26,8 +27,8 @@ function retailerSearchUrl(retailer: string, productName: string) {
 
 export function getRetailerLinks(product: Product): RetailerLink[] {
   return [
-    { name: "Amazon", url: product.affiliateUrl || retailerSearchUrl("Amazon", product.name) },
-    { name: "Flipkart", url: retailerSearchUrl("Flipkart", product.name) },
+    { name: "Amazon", url: product.affiliateUrl || retailerSearchUrl("Amazon", product.name), logo: "https://cdn.simpleicons.org/amazon/232f3e" },
+    { name: "Flipkart", url: retailerSearchUrl("Flipkart", product.name), logo: "https://cdn.simpleicons.org/flipkart/2874f0" },
   ];
 }
 

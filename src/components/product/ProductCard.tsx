@@ -14,12 +14,12 @@ export default function ProductCard({
   const saved = wishlist.has(product.id);
   return (
     <article
-      className={`product-card group flex h-[326px] shrink-0 flex-col overflow-hidden rounded-[14px] border border-border/90 bg-white transition duration-200 hover:-translate-y-1 hover:border-blue-200 hover:shadow-card dark:border-slate-700 dark:bg-slate-900 ${
-        horizontal ? "w-[178px] sm:w-[196px]" : ""
+      className={`product-card group flex h-[326px] shrink-0 flex-col overflow-hidden rounded-[14px] border border-border/90 bg-white transition duration-200 hover:-translate-y-1 hover:border-blue-200 hover:shadow-card dark:border-slate-700 dark:bg-slate-900 lg:h-[326px] ${
+        horizontal ? "w-[178px] sm:w-[196px]" : "w-full min-w-0 lg:w-4/5 lg:justify-self-center"
       }`}
     >
       {/* Product image */}
-      <div className="relative block h-[132px] w-full shrink-0 overflow-hidden bg-soft p-3 dark:bg-slate-800 sm:h-[144px]">
+      <div className="relative block h-[132px] w-full shrink-0 overflow-hidden bg-soft p-3 dark:bg-slate-800 sm:h-[144px] lg:h-[132px]">
         <img
           className="h-full w-full object-contain mix-blend-multiply transition duration-500 group-hover:scale-[1.03] dark:mix-blend-normal"
           src={product.image}
@@ -42,7 +42,7 @@ export default function ProductCard({
       </div>
 
       {/* Product content */}
-      <div className="flex min-h-0 flex-1 flex-col p-3 sm:p-3.5">
+      <div className="flex min-h-0 flex-1 flex-col p-3 sm:p-3.5 lg:p-3.5">
         {/* Category */}
         <p className="mb-1 shrink-0 text-[10px] font-bold uppercase leading-4 tracking-[.08em] text-webzark">
           {product.category}
@@ -73,11 +73,12 @@ export default function ProductCard({
             {getRetailerLinks(product).map((retailer) => (
               <a
                 key={retailer.name}
-                className="block rounded-[8px] px-3 py-2 text-center text-xs font-bold text-navy hover:bg-blue-50 hover:text-webzark dark:text-white dark:hover:bg-slate-700"
+                className="flex items-center gap-2 rounded-[8px] px-2.5 py-2 text-left text-xs font-bold text-navy hover:bg-blue-50 hover:text-webzark dark:text-white dark:hover:bg-slate-700"
                 href={retailer.url}
                 target="_blank"
                 rel="noreferrer"
               >
+                <img className="h-4 w-4 shrink-0 object-contain" src={retailer.logo} alt="" aria-hidden="true" />
                 {retailer.name}
               </a>
             ))}
