@@ -25,7 +25,7 @@ export default function Input({
         updateValidation(event);
         onBlur?.(event);
       }}
-      className={`w-full rounded-[14px] border bg-white px-3 py-2 text-sm text-ink outline-none placeholder:text-slate-400 transition-colors duration-200 hover:border-slate-300 focus:outline-none focus:ring-2 disabled:cursor-not-allowed disabled:bg-soft disabled:text-muted ${
+      className={`w-full rounded-[10px] border bg-white px-3 py-2 text-sm text-ink outline-none placeholder:text-slate-400 transition-colors duration-200 hover:border-slate-300 focus:outline-none focus:ring-2 disabled:cursor-not-allowed disabled:bg-soft disabled:text-muted ${
         validation === "invalid"
           ? "border-red-500 focus:border-red-500 focus:ring-red-100"
           : validation === "valid"

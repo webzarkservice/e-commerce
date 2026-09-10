@@ -1,6 +1,7 @@
 import Router from "./routes/Router";
 import { WishlistProvider } from "./context/WishlistContext";
+import { ThemeProvider } from "./context/ThemeContext";
 
 export default function App() {
-  return <WishlistProvider><Router /></WishlistProvider>;
+  return <ThemeProvider><WishlistProvider><Router /></WishlistProvider></ThemeProvider>;
 }

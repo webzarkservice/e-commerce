@@ -240,7 +240,7 @@ export default function Search() {
           <div
             data-aos="fade-up"
             data-aos-delay="50"
-            className="mb-5 grid grid-cols-2 gap-2 lg:hidden"
+            className="mb-5 grid grid-cols-1 gap-2 min-[480px]:grid-cols-2 lg:hidden"
           >
             <Select
               className="w-full bg-white"

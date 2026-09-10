@@ -1,7 +1,6 @@
 import { useMemo, useState } from "react";
 import {
   Check,
-  ChevronDown,
   ChevronLeft,
   ChevronRight,
   Search,
@@ -140,32 +139,32 @@ export default function Products() {
   return (
     <main className="min-h-screen bg-page text-ink dark:bg-slate-950 dark:text-slate-100">
       <section className="border-b border-border bg-white dark:border-slate-800 dark:bg-slate-900">
-        <div className="mx-auto max-w-[1680px] px-4 py-5 sm:px-6 lg:px-10">
+        <div className="mx-auto max-w-[1440px] px-4 py-7 sm:px-6 lg:px-8">
           <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
             <div>
-              <h1 className="font-display text-2xl font-extrabold tracking-[-.04em] text-navy dark:text-white">Browse products</h1>
-              <p className="mt-1 text-xs text-muted dark:text-slate-400">Compare useful hardware, then buy from the retailer you trust.</p>
+              <h1 className="font-display text-3xl font-extrabold tracking-[-.04em] text-navy dark:text-white">Browse products</h1>
+              <p className="mt-2 text-sm text-muted dark:text-slate-400">Compare useful hardware, then buy from the retailer you trust.</p>
             </div>
             <label className="relative w-full max-w-2xl">
               <span className="sr-only">Search products</span>
               <Search size={18} aria-hidden="true" className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-muted" />
-              <input value={query} onChange={(event) => { setQuery(event.target.value); setPage(1); }} placeholder="Search products, categories, or use cases" className="h-12 w-full rounded-[10px] border border-border bg-page pl-11 pr-4 text-sm text-navy outline-none transition placeholder:text-muted focus:border-webzark dark:border-slate-700 dark:bg-slate-950 dark:text-white" />
+              <input value={query} onChange={(event) => { setQuery(event.target.value); setPage(1); }} placeholder="Search products, categories, or use cases" className="h-12 w-full rounded-[10px] border border-border bg-page pl-11 pr-4 text-sm text-navy outline-none transition placeholder:text-muted focus:border-webzark focus:ring-2 focus:ring-blue-100 dark:border-slate-700 dark:bg-slate-950 dark:text-white" />
             </label>
           </div>
         </div>
       </section>
 
-      <section className="mx-auto max-w-[1680px] px-4 py-6 sm:px-6 lg:px-10 lg:py-8">
+      <section className="mx-auto max-w-[1440px] px-4 py-7 sm:px-6 lg:px-8 lg:py-10">
         <div className="mb-5 flex flex-wrap items-center justify-between gap-3">
           <div className="flex items-center gap-2">
-            <button type="button" onClick={() => setMobileFiltersOpen((open) => !open)} className="inline-flex items-center gap-2 rounded-[8px] border border-border bg-white px-3 py-2 text-xs font-bold text-navy dark:border-slate-700 dark:bg-slate-900 dark:text-white lg:hidden">
+            <button type="button" onClick={() => setMobileFiltersOpen((open) => !open)} className="inline-flex min-h-11 items-center gap-2 rounded-[10px] border border-border bg-white px-3 text-xs font-bold text-navy focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-webzark dark:border-slate-700 dark:bg-slate-900 dark:text-white lg:hidden">
               <SlidersHorizontal size={15} /> Filters
             </button>
             <span className="text-xs text-muted dark:text-slate-400">{filteredProducts.length} results</span>
           </div>
-          <label className="flex items-center gap-2 text-xs font-bold text-navy dark:text-slate-200">
+          <label className="flex min-h-11 items-center gap-2 text-xs font-bold text-navy dark:text-slate-200">
             Sort by
-            <select value={sort} onChange={(event) => setFilter(setSort, event.target.value as SortOption)} className="rounded-[8px] border border-border bg-white px-3 py-2 text-xs font-semibold outline-none focus:border-webzark dark:border-slate-700 dark:bg-slate-900">
+            <select value={sort} onChange={(event) => setFilter(setSort, event.target.value as SortOption)} className="min-h-11 rounded-[10px] border border-border bg-white px-3 text-xs font-semibold outline-none focus:border-webzark focus:ring-2 focus:ring-blue-100 dark:border-slate-700 dark:bg-slate-900">
               <option value="featured">Featured first</option>
               <option value="price-low">Price: low to high</option>
               <option value="price-high">Price: high to low</option>
@@ -174,16 +173,16 @@ export default function Products() {
           </label>
         </div>
 
-        <div className={`mb-5 rounded-[10px] border border-border bg-white p-4 dark:border-slate-700 dark:bg-slate-900 lg:hidden ${mobileFiltersOpen ? "block" : "hidden"}`}>
+        <div className={`mb-5 rounded-[14px] border border-border bg-white p-4 dark:border-slate-700 dark:bg-slate-900 lg:hidden ${mobileFiltersOpen ? "block" : "hidden"}`}>
           <div className="mb-4 flex items-center justify-between">
             <h2 className="font-display font-bold text-navy dark:text-white">Filters</h2>
-            <button type="button" aria-label="Close filters" onClick={() => setMobileFiltersOpen(false)} className="text-muted"><X size={18} /></button>
+            <button type="button" aria-label="Close filters" onClick={() => setMobileFiltersOpen(false)} className="grid h-11 w-11 place-items-center text-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-webzark"><X size={18} /></button>
           </div>
           <FilterPanel {...{ category, setCategory: (value: string) => setFilter(setCategory, value), minPrice, setMinPrice: (value: number) => setFilter(setMinPrice, value), maxPrice, setMaxPrice: (value: number) => setFilter(setMaxPrice, value), featuredOnly, setFeaturedOnly: (value: boolean) => setFilter(setFeaturedOnly, value), inStockOnly, setInStockOnly: (value: boolean) => setFilter(setInStockOnly, value) }} />
         </div>
 
-        <div className="grid gap-6 lg:grid-cols-[236px_1fr]">
-          <aside className="hidden rounded-[10px] border border-border bg-white p-5 lg:block dark:border-slate-700 dark:bg-slate-900">
+        <div className="grid gap-8 lg:grid-cols-[250px_1fr]">
+          <aside className="hidden rounded-[16px] border border-border bg-white p-5 lg:block dark:border-slate-700 dark:bg-slate-900">
             <div className="mb-5 flex items-center justify-between">
               <h2 className="font-display font-bold text-navy dark:text-white">Filters</h2>
               <button type="button" onClick={clearFilters} className="text-xs font-bold text-webzark hover:underline">Clear all</button>
@@ -193,8 +192,8 @@ export default function Products() {
           <div className="min-w-0">
             <div className="mb-5 flex items-end justify-between gap-4">
               <div>
-                <h2 className="font-display text-2xl font-extrabold tracking-[-.04em] text-navy dark:text-white">Compare your shortlist</h2>
-                <p className="mt-1 text-xs text-muted dark:text-slate-400">Save favorites with the heart, then open a retailer link to purchase.</p>
+                <h2 className="font-display text-2xl font-extrabold tracking-[-.03em] text-navy dark:text-white">Compare your shortlist</h2>
+                <p className="mt-2 text-sm text-muted dark:text-slate-400">Save favorites with the heart, then open a retailer link to purchase.</p>
               </div>
               <button type="button" onClick={clearFilters} className="hidden text-xs font-bold text-webzark hover:underline sm:block">Reset filters</button>
             </div>

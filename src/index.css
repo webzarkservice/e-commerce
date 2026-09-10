@@ -5,11 +5,50 @@
 
 @layer base {
   html { scroll-behavior: smooth; }
-  body { margin: 0; min-width: 320px; overflow-x: hidden; font-family: 'DM Sans', sans-serif; -webkit-font-smoothing: antialiased; }
+  body { margin: 0; min-width: 320px; overflow-x: hidden; background: #f7f8fa; color: #1e293b; font-family: 'DM Sans', sans-serif; font-size: 1rem; line-height: 1.5; letter-spacing: -.01em; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
   img { max-width: 100%; }
   input, select, textarea, button { max-width: 100%; }
   button, a { -webkit-tap-highlight-color: transparent; }
+  ::selection { background: #bfdbfe; color: #12213d; }
 }
+
+.font-display { text-wrap: balance; letter-spacing: -.035em; }
+.tabular-nums { font-variant-numeric: tabular-nums; }
+
+html.dark body { background: #020617; color: #e2e8f0; }
+html.dark .bg-page { background-color: #020617; }
+html.dark .bg-white { background-color: #0f172a; }
+html.dark .bg-soft { background-color: #172033; }
+html.dark .text-navy, html.dark .text-ink { color: #f8fafc; }
+html.dark .text-muted { color: #94a3b8; }
+html.dark .border-border { border-color: #263247; }
+
+.mobile-bottom-nav {
+  position: fixed;
+  z-index: 30;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  padding: .45rem max(1rem, env(safe-area-inset-right)) max(.45rem, env(safe-area-inset-bottom)) max(1rem, env(safe-area-inset-left));
+  border-top: 1px solid #e3e8ef;
+  background: rgb(255 255 255 / .94);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+.mobile-bottom-nav-link {
+  display: grid;
+  min-height: 3.25rem;
+  place-items: center;
+  gap: .2rem;
+  border-radius: .65rem;
+  font-size: .7rem;
+  font-weight: 700;
+}
+
+html.dark .mobile-bottom-nav { border-color: #263247; background: rgb(15 23 42 / .94); }
 
 .product-card-title,
 .product-card-description {
@@ -20,12 +59,12 @@
 
 .product-card-title {
   -webkit-line-clamp: 1;
-  min-height: 1.25rem;
+  min-height: 1.3rem;
 }
 
 .product-card-description {
   -webkit-line-clamp: 2;
-  min-height: 2.5rem;
+  min-height: 2.75rem;
 }
 * {
   scrollbar-width: thin;
@@ -96,6 +135,17 @@
   margin: 6px auto 0;
   border-radius: 9999px;
   background: #e2e8f0;
+}
+
+@media (min-width: 768px) {
+  .product-card-title { min-height: 1.5rem; }
+}
+
+@media (hover: none) {
+  .product-card:hover {
+    transform: none;
+    box-shadow: none;
+  }
 }
 
 .catalog-thumb {

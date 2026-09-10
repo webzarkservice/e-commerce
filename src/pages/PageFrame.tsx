@@ -17,26 +17,23 @@ export default function PageFrame({
       className={
         centered
           ? "bg-transparent p-0 text-ink"
-          : "min-h-screen bg-page px-3 py-8 text-ink sm:px-4 sm:py-12 md:px-8 "
+          : "min-h-screen bg-page px-4 py-9 text-ink sm:px-6 sm:py-12 md:py-16 lg:px-8 "
       }
     >
       <div
-        className={centered ? "mx-auto text-center" : "mx-auto max-w-[1680px]"}
+        className={centered ? "mx-auto text-center" : "mx-auto max-w-[1440px]"}
       >
         <RevealOnScroll>
-          <p className="mb-3 text-xs font-bold uppercase tracking-[.14em] text-webzark">
-            Webzark Marketplace
-          </p>
-          <h1 className="font-display text-3xl font-extrabold tracking-[-.05em] text-navy sm:text-4xl">
+          <h1 className="max-w-3xl font-display text-[2.15rem] font-extrabold leading-[1.03] tracking-[-.04em] text-navy sm:text-5xl">
             {title}
           </h1>
           {intro && (
-            <p className="mx-auto mt-3 max-w-2xl text-sm leading-6 text-muted">
+            <p className="mt-3 max-w-2xl text-sm leading-6 text-muted sm:mt-4 sm:text-base sm:leading-7">
               {intro}
             </p>
           )}
         </RevealOnScroll>
-        <div className={centered ? "mt-6 text-left" : "mt-10"}>{children}</div>
+        <div className={centered ? "mt-6 text-left" : "mt-8 sm:mt-12"}>{children}</div>
       </div>
     </main>
   );
